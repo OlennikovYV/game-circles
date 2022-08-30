@@ -1,0 +1,33 @@
+$debug_color: #ee9999;
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 1px dotted $debug_color;
+}
+
+body {
+  overflow: hidden;
+}
+
+.screens {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 600px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 5rem;
+  line-height: 1.3;
+}
