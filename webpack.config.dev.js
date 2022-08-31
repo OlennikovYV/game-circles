@@ -7,6 +7,10 @@ const config = {
     devMiddleware: {
       writeToDisk: true,
     },
+    client: {
+      logging: "info",
+      progress: false,
+    },
     hot: true,
     open: true,
     port: 8080,
