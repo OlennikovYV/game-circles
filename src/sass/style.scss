@@ -123,4 +123,8 @@ body {
     background-color: $background-primary;
     border-radius: $border-radius;
   }
+
+  &__scores {
+    display: none;
+  }
 }
