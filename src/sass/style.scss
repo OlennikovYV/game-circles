@@ -1,0 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+$debug_color: #ee9999;
+
+$background-primary: #d1d1d1;
+$background-secondary: #efefef;
+$board-size: 95%;
+$border-radius: 10px;
+$color-text: #4a4a4a;
+$themes-small-size: 80px;
+$themes-small-shift: -40px;
+$themes-big-size: 180px;
+$themes-big-shift: -90px;
+
+* {
+  margin: 0;
+  padding: 0;
+  // outline: 1px dotted $debug_color;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: $background-primary;
+  font-family: "Poppins", sans-serif;
+  color: $color-text;
+  overflow: hidden;
+}
+
+.themes {
+  position: fixed;
+  top: $themes-small-shift;
+  left: $themes-small-shift;
+  width: $themes-small-size;
+  height: $themes-small-size;
+  border-radius: 50%;
+  background-color: $background-secondary;
+  transition: all 0.5s;
+
+  &__title {
+    position: absolute;
+    right: 20px;
+    bottom: 45px;
+  }
+
+  &:hover {
+    top: $themes-big-shift;
+    left: $themes-big-shift;
+    width: $themes-big-size;
+    height: $themes-big-size;
+  }
+}
+
+.screens {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  width: 1200px;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $background-secondary;
+}
+
+.title {
+  font-size: 5rem;
+  line-height: 1.7;
+  letter-spacing: 15px;
+
+  &__first-letter {
+    font-size: 10rem;
+    font-weight: 400;
+    letter-spacing: -13px;
+    vertical-align: middle;
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+.button {
+  width: 100px;
+  height: 70%;
+  border: none;
+  border-radius: $border-radius;
+  font-size: 1.5rem;
+  background-color: $background-primary;
+  color: $color-text;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+
+  &__timer {
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+  }
+
+  &__board {
+    width: $board-size;
+    height: $board-size;
+    background-color: $background-primary;
+    border-radius: $border-radius;
+  }
+}
