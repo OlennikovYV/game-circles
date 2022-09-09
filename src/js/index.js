@@ -25,6 +25,8 @@ import "../sass/style.scss";
           time = Number(e.target.getAttribute("data-time"));
           screens[currentScreen].classList.add("up");
           currentScreen += 1;
+          titleScores.style.display = "none";
+
           startGame();
           break;
         case "game":
@@ -33,6 +35,8 @@ import "../sass/style.scss";
           }
           currentScreen = 0;
           titleScores.style.display = "none";
+
+          finishGame();
           break;
       }
     }
@@ -57,19 +61,24 @@ import "../sass/style.scss";
   }
 
   function finishGame() {
-    clearInterval(intervalID);
+    if (intervalID) clearInterval(intervalID);
+    titleScores.innerHTML = `YOUR SCORES: ${scores}`;
     titleScores.style.display = "block";
   }
 
-  function setTime() {
-    titleTimer.innerHTML = time;
+  function addZero(num) {
+    return String(num).padStart(2, "0");
   }
 
-  window.addEventListener("resize", getSizes, false);
+  function convertToHuman(time) {
+    const min = Math.trunc(time / 60);
+    const sec = time - min * 60;
 
-  function getSizes() {
-    screens[currentScreen].clientHeight = document.body.clientHeight + "px";
-    screens[currentScreen].clientWidth = document.body.clientWidth + "px";
+    return `${addZero(min)}:${addZero(sec)}`;
+  }
+
+  function setTime() {
+    titleTimer.innerHTML = convertToHuman(time);
   }
 
   for (let i = 0; i < menus.length; i += 1) {

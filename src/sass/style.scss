@@ -7,10 +7,7 @@ $background-secondary: #efefef;
 $board-size: 95%;
 $border-radius: 10px;
 $color-text: #4a4a4a;
-// $themes-small-size: 80px;
-// $themes-small-shift: -40px;
-// $themes-big-size: 180px;
-// $themes-big-shift: -90px;
+$themes-button-size: 80px;
 
 * {
   margin: 0;
@@ -30,8 +27,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 80px;
-  height: 80px;
+  width: $themes-button-size;
+  height: $themes-button-size;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background-color: $background-secondary;
@@ -110,6 +107,12 @@ body {
   font-size: 1.5rem;
   background-color: $background-primary;
   color: $color-text;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: $background-secondary;
+    outline: 1px solid $background-primary;
+  }
 }
 
 .board {
@@ -126,6 +129,9 @@ body {
   }
 
   &__field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: $board-size;
     height: $board-size;
     background-color: $background-primary;
@@ -134,5 +140,6 @@ body {
 
   &__scores {
     display: none;
+    font-size: 2rem;
   }
 }
