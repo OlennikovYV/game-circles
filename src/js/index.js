@@ -65,6 +65,13 @@ import "../sass/style.scss";
     titleTimer.innerHTML = time;
   }
 
+  window.addEventListener("resize", getSizes, false);
+
+  function getSizes() {
+    screens[currentScreen].clientHeight = document.body.clientHeight + "px";
+    screens[currentScreen].clientWidth = document.body.clientWidth + "px";
+  }
+
   for (let i = 0; i < menus.length; i += 1) {
     menus[i].addEventListener("click", screenUp);
   }
