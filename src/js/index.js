@@ -11,6 +11,7 @@ import "../sass/style.scss";
   const menus = document.getElementsByClassName("menu");
   const titleTimer = document.getElementsByClassName("board__timer")[0];
   const titleScores = document.getElementsByClassName("board__scores")[0];
+  const board = document.getElementsByClassName("board__field")[0];
 
   function screenUp(e) {
     if (e.target.classList.contains("button")) {
@@ -27,7 +28,7 @@ import "../sass/style.scss";
           currentScreen += 1;
           titleScores.style.display = "none";
 
-          startGame();
+          setTimeout(startGame, 1000);
           break;
         case "game":
           for (let i = 0; i < screens.length; i += 1) {
@@ -44,11 +45,42 @@ import "../sass/style.scss";
 
   function startGame() {
     intervalID = setInterval(decreaseTime, 1000);
+    scores = 0;
+    board.addEventListener("click", clickCirle);
     createRandomCircle();
     setTime();
   }
 
-  function createRandomCircle() {}
+  function clickCirle(event) {
+    if (event.target.classList.contains("board__circle")) {
+      event.target.remove();
+      scores += 1;
+      createRandomCircle();
+    }
+  }
+
+  function createRandomCircle() {
+    let circle = document.createElement("div");
+
+    let diameter = getRandomNumber(40, 60);
+    let { width, height } = board.getBoundingClientRect();
+    let x = getRandomNumber(diameter, width - diameter);
+    let y = getRandomNumber(diameter, height - diameter);
+
+    circle.classList.add("board__circle");
+    circle.style.position = "absolute";
+    circle.style.left = `${x}px`;
+    circle.style.top = `${y}px`;
+    circle.style.width = `${diameter}px`;
+    circle.style.height = `${diameter}px`;
+    circle.style.backgroundColor = "#8e8e8e";
+
+    board.append(circle);
+  }
+
+  function getRandomNumber(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
 
   function decreaseTime() {
     time -= 1;
@@ -61,7 +93,14 @@ import "../sass/style.scss";
   }
 
   function finishGame() {
+    const circles = document.getElementsByClassName("board__circle");
+    for (let i = 0; i < circles.length; i += 1) {
+      circles[i].remove();
+    }
+
     if (intervalID) clearInterval(intervalID);
+    board.removeEventListener("click", clickCirle);
+
     titleScores.innerHTML = `YOUR SCORES: ${scores}`;
     titleScores.style.display = "block";
   }

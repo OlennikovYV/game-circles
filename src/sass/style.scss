@@ -142,4 +142,8 @@ body {
     display: none;
     font-size: 2rem;
   }
+
+  &__circle {
+    border-radius: 50%;
+  }
 }
