@@ -1,4 +1,5 @@
 import "../sass/style.scss";
+import { setTime, setScores, getRandomNumber } from "./helper/utils";
 
 !(function () {
   let currentScreen = 0;
@@ -9,8 +10,13 @@ import "../sass/style.scss";
 
   const screens = document.getElementsByClassName("screens");
   const menus = document.getElementsByClassName("menu");
-  const titleTimer = document.getElementsByClassName("board__timer")[0];
-  const titleScores = document.getElementsByClassName("board__scores")[0];
+  const titleTimer = document.getElementsByClassName(
+    "game-information__timer"
+  )[0];
+  const titleScores = document.getElementsByClassName(
+    "game-information__scores"
+  )[0];
+  const titleGame = document.getElementsByClassName("board__game-title")[0];
   const board = document.getElementsByClassName("board__field")[0];
 
   function screenUp(e) {
@@ -40,7 +46,7 @@ import "../sass/style.scss";
               starGame();
             }
 
-            if (pressedElement.classList.contains("menu")) {
+            if (pressedElement.classList.contains("start")) {
               for (let i = 0; i < screens.length; i += 1) {
                 screens[i].classList.remove("up");
               }
@@ -56,8 +62,8 @@ import "../sass/style.scss";
   }
 
   function starGame() {
-    titleScores.innerHTML = `READY !`;
-    titleScores.style.display = "block";
+    titleGame.innerHTML = `READY !`;
+    titleGame.style.display = "block";
     document.getElementsByClassName("restart")[0].disabled = true;
 
     timerID = setTimeout(runGame, 1500);
@@ -66,11 +72,12 @@ import "../sass/style.scss";
   function runGame() {
     let remainingTime = selectedTime;
 
-    setTime(remainingTime);
+    setTime(titleTimer, remainingTime);
     timerID = setInterval(decreaseTime(remainingTime), 1000);
 
     scores = 0;
-    titleScores.style.display = "none";
+    setScores(titleScores, scores);
+    titleGame.style.display = "none";
     document.getElementsByClassName("restart")[0].disabled = false;
     board.addEventListener("click", clickCirle);
     createRandomCircle();
@@ -80,6 +87,7 @@ import "../sass/style.scss";
     if (event.target.classList.contains("board__circle")) {
       event.target.remove();
       scores += 1;
+      setScores(titleScores, scores);
       createRandomCircle();
     }
   }
@@ -104,18 +112,14 @@ import "../sass/style.scss";
     board.append(circle);
   }
 
-  function getRandomNumber(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-  }
-
   function decreaseTime(time) {
     return () => {
       time -= 1;
 
       if (time > 0) {
-        setTime(time);
+        setTime(titleTimer, time);
       } else {
-        setTime(time);
+        setTime(titleTimer, time);
         finishGame();
       }
     };
@@ -130,24 +134,9 @@ import "../sass/style.scss";
     if (timerID) clearInterval(timerID);
     board.removeEventListener("click", clickCirle);
 
-    titleScores.innerHTML = `YOUR SCORES: ${scores}`;
-    titleScores.style.display = "block";
-    setTime(0);
-  }
-
-  function addZero(num) {
-    return String(num).padStart(2, "0");
-  }
-
-  function convertToHuman(time) {
-    const min = Math.trunc(time / 60);
-    const sec = time - min * 60;
-
-    return `${addZero(min)}:${addZero(sec)}`;
-  }
-
-  function setTime(time) {
-    titleTimer.innerHTML = convertToHuman(time);
+    titleGame.innerHTML = `GAME OVER !`;
+    titleGame.style.display = "block";
+    setTime(titleTimer, 0);
   }
 
   for (let i = 0; i < menus.length; i += 1) {
