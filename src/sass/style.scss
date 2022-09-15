@@ -2,11 +2,11 @@
 
 $debug_color: #ee9999;
 
-$background-primary: #d1d1d1;
-$background-secondary: #efefef;
+$background-primary: #d9d5c8;
+$background-secondary: #f5f5ec;
 $board-size: 95%;
 $border-radius: 10px;
-$color-text: #4a4a4a;
+$color-text: #707070;
 $themes-button-size: 80px;
 
 * {
@@ -100,11 +100,11 @@ body {
 }
 
 .button {
-  width: 100px;
+  width: 140px;
   height: 70%;
   border: none;
   border-radius: $border-radius;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   background-color: $background-primary;
   color: $color-text;
   transition: all 0.3s ease-in-out;
@@ -140,7 +140,7 @@ body {
 
   &__scores {
     display: none;
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
   &__circle {

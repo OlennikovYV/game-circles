@@ -2,10 +2,10 @@ import "../sass/style.scss";
 
 !(function () {
   let currentScreen = 0;
-  let time = 0;
+  let selectedTime = 0;
   let scores = 0;
   let themes = "light";
-  let intervalID;
+  let timerID;
 
   const screens = document.getElementsByClassName("screens");
   const menus = document.getElementsByClassName("menu");
@@ -21,34 +21,59 @@ import "../sass/style.scss";
         case "title":
           screens[currentScreen].classList.add("up");
           currentScreen += 1;
+
           break;
         case "options":
-          time = Number(e.target.getAttribute("data-time"));
+          selectedTime = Number(e.target.getAttribute("data-time"));
           screens[currentScreen].classList.add("up");
           currentScreen += 1;
-          titleScores.style.display = "none";
 
-          setTimeout(startGame, 1000);
+          starGame();
+
           break;
         case "game":
-          for (let i = 0; i < screens.length; i += 1) {
-            screens[i].classList.remove("up");
-          }
-          currentScreen = 0;
-          titleScores.style.display = "none";
+          let pressedElement = e.target;
 
-          finishGame();
+          if (pressedElement.classList.contains("button")) {
+            if (pressedElement.classList.contains("restart")) {
+              finishGame();
+              starGame();
+            }
+
+            if (pressedElement.classList.contains("menu")) {
+              for (let i = 0; i < screens.length; i += 1) {
+                screens[i].classList.remove("up");
+              }
+              currentScreen = 0;
+
+              finishGame();
+            }
+          }
+
           break;
       }
     }
   }
 
-  function startGame() {
-    intervalID = setInterval(decreaseTime, 1000);
+  function starGame() {
+    titleScores.innerHTML = `READY !`;
+    titleScores.style.display = "block";
+    document.getElementsByClassName("restart")[0].disabled = true;
+
+    timerID = setTimeout(runGame, 1500);
+  }
+
+  function runGame() {
+    let remainingTime = selectedTime;
+
+    setTime(remainingTime);
+    timerID = setInterval(decreaseTime(remainingTime), 1000);
+
     scores = 0;
+    titleScores.style.display = "none";
+    document.getElementsByClassName("restart")[0].disabled = false;
     board.addEventListener("click", clickCirle);
     createRandomCircle();
-    setTime();
   }
 
   function clickCirle(event) {
@@ -73,7 +98,8 @@ import "../sass/style.scss";
     circle.style.top = `${y}px`;
     circle.style.width = `${diameter}px`;
     circle.style.height = `${diameter}px`;
-    circle.style.backgroundColor = "#8e8e8e";
+    circle.style.backgroundColor = "#e9e5d8";
+    circle.style.boxShadow = "0px 0px 3px 2px #c9c5b8";
 
     board.append(circle);
   }
@@ -82,14 +108,17 @@ import "../sass/style.scss";
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  function decreaseTime() {
-    time -= 1;
-    if (time > 0) {
-      setTime();
-    } else {
-      setTime();
-      finishGame();
-    }
+  function decreaseTime(time) {
+    return () => {
+      time -= 1;
+
+      if (time > 0) {
+        setTime(time);
+      } else {
+        setTime(time);
+        finishGame();
+      }
+    };
   }
 
   function finishGame() {
@@ -98,11 +127,12 @@ import "../sass/style.scss";
       circles[i].remove();
     }
 
-    if (intervalID) clearInterval(intervalID);
+    if (timerID) clearInterval(timerID);
     board.removeEventListener("click", clickCirle);
 
     titleScores.innerHTML = `YOUR SCORES: ${scores}`;
     titleScores.style.display = "block";
+    setTime(0);
   }
 
   function addZero(num) {
@@ -116,7 +146,7 @@ import "../sass/style.scss";
     return `${addZero(min)}:${addZero(sec)}`;
   }
 
-  function setTime() {
+  function setTime(time) {
     titleTimer.innerHTML = convertToHuman(time);
   }
 
