@@ -66,10 +66,15 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
     titleGame.style.display = "block";
     document.getElementsByClassName("restart")[0].disabled = true;
 
-    timerID = setTimeout(runGame, 1500);
+    timerID = setTimeout(readyGame, 1250);
   }
 
-  function runGame() {
+  function readyGame() {
+    titleGame.innerHTML = `GO !`;
+    timerID = setTimeout(goGame, 1250);
+  }
+
+  function goGame() {
     let remainingTime = selectedTime;
 
     setTime(titleTimer, remainingTime);
