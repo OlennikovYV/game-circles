@@ -134,6 +134,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     width: $board-size;
     height: $board-size;
     background-color: $background-primary;
@@ -146,6 +147,10 @@ body {
   }
 
   &__circle {
+    position: absolute;
+    background-color: #e9e5d8;
+    box-shadow: 0px 0px 3px 2px #c9c5b8;
+
     border-radius: 50%;
   }
 }
