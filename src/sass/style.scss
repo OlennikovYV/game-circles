@@ -4,6 +4,7 @@ $debug_color: #ee9999;
 
 $background-primary: #d9d5c8;
 $background-secondary: #f5f5ec;
+$background-disabled: #b6b6b6;
 $board-size: 95%;
 $border-radius: 10px;
 $color-text: #707070;
@@ -110,15 +111,30 @@ body {
   border: 2px solid $background-primary;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     background-color: $background-secondary;
     border: 2px solid $background-primary;
   }
 
+  &[data-tip]::after {
+    content: attr(data-tip);
+    // text-shadow: 2px 2px 2px $background-secondary;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &[data-tip]:hover::after {
+    content: attr(data-tip);
+    text-shadow: 1px 1px 10px $color-text;
+  }
+
+  &[data-tip]:disabled::after {
+    text-shadow: 1px 1px 15px $color-text;
+  }
+
   &:disabled {
-    background-color: #bbb;
+    background-color: $background-disabled;
   }
 }
 
