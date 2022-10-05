@@ -12,7 +12,7 @@ $themes-button-size: 80px;
 * {
   margin: 0;
   padding: 0;
-  outline: 1px dotted $debug_color;
+  // outline: 1px dotted $debug_color;
 }
 
 body {
@@ -80,6 +80,7 @@ body {
 }
 
 .title {
+  height: 90%;
   font-size: 5rem;
   line-height: 2.7;
   letter-spacing: 15px;
@@ -102,17 +103,22 @@ body {
 .button {
   width: 140px;
   height: 80%;
-  border: none;
+  padding: 5px;
+  font-size: 1.3rem;
+  color: $color-text;
+  background-color: $background-primary;
+  border: 2px solid $background-primary;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  font-size: 1.3rem;
-  background-color: $background-primary;
-  color: $color-text;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
   &:hover {
     background-color: $background-secondary;
-    outline: 1px solid $background-primary;
+    border: 2px solid $background-primary;
+  }
+
+  &:disabled {
+    background-color: #bbb;
   }
 }
 
@@ -128,6 +134,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     width: $board-size;
     height: $board-size;
     background-color: $background-primary;
@@ -140,6 +147,10 @@ body {
   }
 
   &__circle {
+    position: absolute;
+    background-color: #e9e5d8;
+    box-shadow: 0px 0px 3px 2px #c9c5b8;
+
     border-radius: 50%;
   }
 }

@@ -66,10 +66,15 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
     titleGame.style.display = "block";
     document.getElementsByClassName("restart")[0].disabled = true;
 
-    timerID = setTimeout(runGame, 1500);
+    timerID = setTimeout(readyGame, 1250);
   }
 
-  function runGame() {
+  function readyGame() {
+    titleGame.innerHTML = `GO !`;
+    timerID = setTimeout(goGame, 1250);
+  }
+
+  function goGame() {
     let remainingTime = selectedTime;
 
     setTime(titleTimer, remainingTime);
@@ -101,13 +106,10 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
     let y = getRandomNumber(diameter, height - diameter);
 
     circle.classList.add("board__circle");
-    circle.style.position = "absolute";
     circle.style.left = `${x}px`;
     circle.style.top = `${y}px`;
     circle.style.width = `${diameter}px`;
     circle.style.height = `${diameter}px`;
-    circle.style.backgroundColor = "#e9e5d8";
-    circle.style.boxShadow = "0px 0px 3px 2px #c9c5b8";
 
     board.append(circle);
   }
