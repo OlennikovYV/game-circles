@@ -5,12 +5,19 @@ $debug_color: #ee9999;
 $background-primary: #d9d5c8;
 $background-secondary: #f5f5ec;
 $background-disabled: #b6b6b6;
+$color-text: #707070;
+
 $board-size: 95%;
 $border-radius: 10px;
-$color-text: #707070;
 $themes-button-size: 80px;
 
+@mixin cursor-pointer {
+  cursor: pointer;
+}
+
 * {
+  cursor: default;
+  user-select: none;
   margin: 0;
   padding: 0;
   // outline: 1px dotted $debug_color;
@@ -33,6 +40,7 @@ body {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background-color: $background-secondary;
+  z-index: 1;
   transition: all 0.3s;
   outline: 1px solid $background-primary;
 
@@ -102,6 +110,7 @@ body {
 }
 
 .button {
+  @include cursor-pointer;
   width: 140px;
   height: 80%;
   padding: 5px;
@@ -120,7 +129,6 @@ body {
 
   &[data-tip]::after {
     content: attr(data-tip);
-    // text-shadow: 2px 2px 2px $background-secondary;
     transition: all 0.2s ease-in-out;
   }
 
@@ -163,10 +171,10 @@ body {
   }
 
   &__circle {
+    @include cursor-pointer;
     position: absolute;
     background-color: #e9e5d8;
     box-shadow: 0px 0px 3px 2px #c9c5b8;
-
     border-radius: 50%;
   }
 }
