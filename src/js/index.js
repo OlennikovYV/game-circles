@@ -89,8 +89,18 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
   }
 
   function clickCirle(event) {
-    if (event.target.classList.contains("board__circle")) {
-      event.target.remove();
+    if (
+      event.target.classList.contains("board__circle") &&
+      !event.target.classList.contains("anim-death")
+    ) {
+      const circleClikced = event.target;
+
+      circleClikced.classList.add("anim-death");
+      circleClikced.addEventListener("animationend", (event) => {
+        console.log("rem");
+        event.target.remove();
+      });
+
       scores += 1;
       setScores(titleScores, scores);
       createRandomCircle();
