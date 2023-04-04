@@ -150,8 +150,22 @@ body {
     position: absolute;
     background-color: #e9e5d8;
     box-shadow: 0px 0px 3px 2px #c9c5b8;
-
     border-radius: 50%;
+
+    &.anim-death {
+      animation-name: death;
+      animation-duration: 1s;
+    }
+  }
+
+  @keyframes death {
+    0% {
+      opacity: 100%;
+    }
+
+    100% {
+      opacity: 0%;
+    }
   }
 }
 
