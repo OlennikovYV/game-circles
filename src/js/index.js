@@ -10,14 +10,10 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
 
   const screens = document.getElementsByClassName("screens");
   const menus = document.getElementsByClassName("menu");
-  const titleTimer = document.getElementsByClassName(
-    "game-information__timer"
-  )[0];
-  const titleScores = document.getElementsByClassName(
-    "game-information__scores"
-  )[0];
-  const titleGame = document.getElementsByClassName("board__game-title")[0];
-  const board = document.getElementsByClassName("board__field")[0];
+  const titleTimer = document.querySelector(".game-information__timer");
+  const titleScores = document.querySelector(".game-information__scores");
+  const titleGame = document.querySelector(".board__game-title");
+  const board = document.querySelector(".board__field");
 
   function screenUp(e) {
     if (e.target.classList.contains("button")) {
@@ -64,7 +60,7 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
   function starGame() {
     titleGame.innerHTML = `READY !`;
     titleGame.style.display = "block";
-    document.getElementsByClassName("restart")[0].disabled = true;
+    document.querySelector(".restart").disabled = true;
 
     setTimeout(readyGame, 1250);
   }
@@ -83,7 +79,7 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
     scores = 0;
     setScores(titleScores, scores);
     titleGame.style.display = "none";
-    document.getElementsByClassName("restart")[0].disabled = false;
+    document.querySelector(".restart").disabled = false;
     board.addEventListener("click", clickCirle);
     createRandomCircle();
   }
