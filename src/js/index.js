@@ -97,7 +97,6 @@ import { setTime, setScores, getRandomNumber } from "./helper/utils";
 
       circleClikced.classList.add("anim-death");
       circleClikced.addEventListener("animationend", (event) => {
-        console.log("rem");
         event.target.remove();
       });
 
